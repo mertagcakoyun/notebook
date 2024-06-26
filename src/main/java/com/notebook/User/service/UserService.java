@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+/**
+ * This service class manages CRUD operations and business logic related to user entities.
+ * It handles user registration, authentication, retrieval, update, and deletion operations.
+ * Additionally, it implements Spring Security's UserDetailsService for user authentication and authorization.
+ */
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,7 +32,7 @@ public class UserService implements UserDetailsService {
         }
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password); // Şifreyi düz metin olarak sakla
+        user.setPassword(password);
         return userRepository.save(user);
     }
 
@@ -56,7 +61,7 @@ public class UserService implements UserDetailsService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setUsername(username);
-            user.setPassword(password); // Şifreyi düz metin olarak sakla
+            user.setPassword(password);
             return userRepository.save(user);
         }
         return null;

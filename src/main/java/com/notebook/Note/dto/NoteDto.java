@@ -1,6 +1,8 @@
 package com.notebook.Note.dto;
 
-
+/**
+ * Data Transfer Object (DTO) class for representing a note.
+ */
 public class NoteDto {
     private String title;
     private String content;

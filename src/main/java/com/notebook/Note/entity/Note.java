@@ -4,7 +4,9 @@ import com.notebook.User.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
-
+/**
+ * Entity class that represents a note stored in the database.
+ */
 @Entity
 @Table(name = "notes")
 public class Note {

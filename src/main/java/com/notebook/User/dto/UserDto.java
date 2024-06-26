@@ -1,6 +1,8 @@
 package com.notebook.User.dto;
 
-
+/**
+ * Data Transfer Object (DTO) class for transferring user-related data.
+ */
 public class UserDto {
     private String username;
     private String password;

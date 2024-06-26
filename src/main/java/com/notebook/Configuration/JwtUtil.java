@@ -10,6 +10,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+/**
+ * Utility class that provides methods for JWT (JSON Web Token) generation,
+ * validation, and parsing. It includes functions to extract username and
+ * expiration date from a token, generate tokens with specified claims, and
+ * validate tokens against UserDetails.
+ */
 
 @Service
 public class JwtUtil {

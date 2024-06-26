@@ -14,6 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+/**
+ * Filter for JWT authentication and authorization.
+ * This filter validates JWT tokens from incoming requests and authenticates users.
+ */
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -39,7 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null) {
-            SecurityContextHolder.clearContext(); // Clean last authentication
+            SecurityContextHolder.clearContext();
 
             UserDetails userDetails = this.userService.loadUserByUsername(username);
 

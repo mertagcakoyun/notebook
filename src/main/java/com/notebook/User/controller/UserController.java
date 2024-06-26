@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Controller class that handles HTTP requests related to user management, including
+ * registration, login, retrieval, update, and deletion of users. It utilizes UserService
+ * for business logic and JwtUtil for generating and validating JSON Web Tokens (JWTs) for
+ * secure authentication.
+ */
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -31,7 +36,6 @@ class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    // Create
     @PostMapping("/register")
     public ResponseEntity<User> register(@Valid @RequestBody UserDto userDto) {
         try {
@@ -42,7 +46,6 @@ class UserController {
         }
     }
 
-    // Login
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
         try {

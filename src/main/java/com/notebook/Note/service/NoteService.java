@@ -8,7 +8,11 @@ import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Service class that provides methods for managing notes, including adding, retrieving,
+ * updating, and deleting notes. It interacts with the NoteRepository to perform database
+ * operations and ensures that operations are restricted to the authenticated user's notes.
+ */
 @Service
 public class NoteService {
     private final NoteRepository noteRepository;

@@ -1,6 +1,9 @@
 package com.notebook.User.entity;
 
 import javax.persistence.*;
+/**
+ * Entity class that represents a user stored in the database.
+ */
 
 @Entity
 @Table(name = "users")

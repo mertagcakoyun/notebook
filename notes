@@ -1,0 +1,22 @@
+ AddNote with spesific JWT ->
+ curl --location --request POST 'http://localhost:8080/api/notes' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZXJ0bzMiLCJleHAiOjE3MTk0MjQ5OTYsImlhdCI6MTcxOTM4ODk5Nn0.f0fU9MHBrMHiN6Yo-tKiAF7Uan7kWDsntZR57XfsZA8' \
+ --header 'Content-Type: application/json' \
+ --data-raw '{
+     "title": "New Note Title",
+     "content": "This is the content of the new note."
+ }'
+
+GetAll Notes for spesific user ->
+curl --location --request GET 'http://localhost:8080/api/notes' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZXJ0bzMiLCJleHAiOjE3MTk0MjQ5OTYsImlhdCI6MTcxOTM4ODk5Nn0.f0fU9MHBrMHiN6Yo-tKiAF7Uan7kWDsntZR57XfsZA8'
+
+Update Notes with Id and user->
+curl --location --request PUT 'http://localhost:8080/api/notes/8' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZXJ0bzMiLCJleHAiOjE3MTk0MjQ5OTYsImlhdCI6MTcxOTM4ODk5Nn0.f0fU9MHBrMHiN6Yo-tKiAF7Uan7kWDsntZR57XfsZA8' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=E1A038C7710EC0E62F5D330D9D43CE2B' \
+--data '{
+    "title": "Updated Note Title",
+    "content": "This is the updated content of the note."
+}'

@@ -1,9 +1,17 @@
 package com.notebook.User.controller;
 
+import com.notebook.User.dto.UserDto;
 import com.notebook.User.entity.User;
 import com.notebook.User.service.UserService;
+import com.notebook.Configuration.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,11 +22,14 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:3000")
 class UserController {
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     // Create
     @PostMapping("/register")
@@ -33,22 +44,29 @@ class UserController {
 
     // Login
     @PostMapping("/login")
-    public ResponseEntity<User> login(@Valid  @RequestBody UserDto userDto) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
         try {
-            User user = userService.login(userDto.getUsername(), userDto.getPassword());
-            return ResponseEntity.ok(user);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword())
+            );
+
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User user = userService.findByUsername(userDetails.getUsername());
+            String jwt = jwtUtil.generateToken(user.getUsername());
+
+            return ResponseEntity.ok(new AuthResponse(jwt));
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<User> find( @PathVariable String username) {
+    public ResponseEntity<User> find(@PathVariable String username) {
         User user = userService.findByUsername(username);
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(userService.findAll());
     }
@@ -70,25 +88,20 @@ class UserController {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-}
 
-class UserDto {
-    private String username;
-    private String password;
+    class AuthResponse {
+        private String jwt;
 
-    public String getUsername() {
-        return username;
-    }
+        public AuthResponse(String jwt) {
+            this.jwt = jwt;
+        }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        public String getJwt() {
+            return jwt;
+        }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        public void setJwt(String jwt) {
+            this.jwt = jwt;
+        }
     }
 }

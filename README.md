@@ -2,6 +2,8 @@
 ## Overview
 The Notebook API is designed to provide a backend service for a simple note-taking application. It allows users to register, login, and manage their notes through various endpoints. This API is built using Spring Boot and utilizes JWT for authentication.
 
+This guide provides the necessary information to test the Notebook API endpoints using cURL commands with appropriate authorization and content headers. Each request requires a valid JWT token, which can be obtained through the login endpoint.
+
 ## Features
   - User Registration and Login
   - JWT-based Authentication
@@ -129,4 +131,3 @@ Authorization: Bearer Token
 curl --location --request DELETE 'http://localhost:8080/api/notes/9' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJasdfGqwsZXJ0bzMiLCJleHAiOjE3MTk0MjQ5OTYsImlhdCI6MTcxOTM4ODk5Nn0.f0fU9MHBrMHiN6Yo-tKiAF7Uan7kWDsntZR57XfsZB7'
 ```
-This guide provides the necessary information to test the Notebook API endpoints using cURL commands with appropriate authorization and content headers. Each request requires a valid JWT token, which can be obtained through the login endpoint.

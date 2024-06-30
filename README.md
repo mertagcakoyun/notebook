@@ -13,6 +13,7 @@ The Notebook API is designed to provide a backend service for a simple note-taki
  - Spring Security: For securing the API endpoints and managing authentication.
  - JWT (JSON Web Token): For authentication and secure data transfer.
  - PostgreSQL: Database used for storing user and note data.
+ - Docker
 
  ##  API Endpoints
 ### User Operations
